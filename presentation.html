@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-05-26 Wed 19:01 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Simponic" />
+<meta name="description" content="A presentation on cryptocurrencies and their inner-workings"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
+</head>
+<body>
+<div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgb7981d1">1. "Blockchains are just spicy linked lists"</a></li>
+<li><a href="#org9bc9ad7">2. Helper functions</a></li>
+<li><a href="#org1aaa86a">3. Memes aside, what is a blockchain?</a>
+<ul>
+<li><a href="#org646ec73">3.1. A blockchain is very simple. At its core, a blockchain is a technology that:</a>
+<ul>
+<li><a href="#org784a7e7">3.1.1. Sounds like a familiar data structure, doesn't it?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org6c69015">4. Developing the idea of a cryptocurrency</a>
+<ul>
+<li><a href="#org5132df6">4.1. The problem</a></li>
+<li><a href="#org9c363c2">4.2. The solution</a></li>
+<li><a href="#orga23a43d">4.3. Another problem</a></li>
+<li><a href="#org9274e5f">4.4. Another solution</a>
+<ul>
+<li><a href="#org46a04a4">4.4.1. We have visual</a></li>
+</ul>
+</li>
+<li><a href="#orgf066536">4.5. Malicious Max is back at it again!</a></li>
+<li><a href="#org80a832b">4.6. Couldn't anybody just tamper with the ledger?</a></li>
+<li><a href="#orgaaa725a">4.7. Going further</a></li>
+</ul>
+</li>
+<li><a href="#orge599c5c">5. Terminology in cryptocurrencies</a>
+<ul>
+<li><a href="#org9857269">5.1. Wallet</a></li>
+<li><a href="#org710b176">5.2. Fiat</a></li>
+<li><a href="#orge5c1256">5.3. Mining</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb7981d1" class="outline-2">
+<h2 id="orgb7981d1"><span class="section-number-2">1</span> "Blockchains are just spicy linked lists"</h2>
+<div class="outline-text-2" id="text-1">
+
+<div id="org4d6568a" class="figure">
+<p><img src="./images/unmasked.png" alt="unmasked.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9bc9ad7" class="outline-2">
+<h2 id="org9bc9ad7"><span class="section-number-2">2</span> Helper functions</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+<pre class="src src-lisp">(defmacro operation= (operation operand value)
+  `(setf ,operand (funcall ,operation ,operand ,value))))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1aaa86a" class="outline-2">
+<h2 id="org1aaa86a"><span class="section-number-2">3</span> Memes aside, what is a blockchain?</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Most of the time when people ask how BitCoin works the answer they give them is simply "a blockchain". For
+many, this answer is good enough. However, I want to dive deeper and show how a person could make their own
+very basic cryptocurrency with a simple blockchain.
+</p>
+</div>
+
+<div id="outline-container-org646ec73" class="outline-3">
+<h3 id="org646ec73"><span class="section-number-3">3.1</span> A blockchain is very simple. At its core, a blockchain is a technology that:</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li>Stores data</li>
+<li>Points to other data</li>
+<li>Does so securely</li>
+</ul>
+</div>
+<div id="outline-container-org784a7e7" class="outline-4">
+<h4 id="org784a7e7"><span class="section-number-4">3.1.1</span> Sounds like a familiar data structure, doesn't it?</h4>
+<div class="outline-text-4" id="text-3-1-1">
+<p>
+Well, yes, in a way it is identical to linked lists (if you have taken/know of data structures). However,
+instead of just pointing to the next list item blockchains typically have some way of verifying the
+order and integrity of the chain. This is done mostly through cryptographic functions like SHA-256.
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6c69015" class="outline-2">
+<h2 id="org6c69015"><span class="section-number-2">4</span> Developing the idea of a cryptocurrency</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org5132df6" class="outline-3">
+<h3 id="org5132df6"><span class="section-number-3">4.1</span> The problem</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+You and your friends love to go out for lunch together. However, it seems like you are the one who is
+always paying for everyone else since everyone claims to have paid last time.
+If only there was a way to solve this terrible dilemma of contention!
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9c363c2" class="outline-3">
+<h3 id="org9c363c2"><span class="section-number-3">4.2</span> The solution</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+In a stroke of amazing genius, you come up with the perfect solution. Instead of relying on memories that
+are manipulated by the subconcious to stop us from lending our money away, you convince your friends to
+start writing it down in a list.
+</p>
+
+<p>
+On this list there will be three columns: a lender who lends someone money, a debtor who will accept that
+money, and then an amount specified.
+</p>
+
+<p>
+Below is an example of one of these lists, also called a "ledger":
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(defun random-from-range (start end)
+  (+ start (random (+ 1 (- end start)))))
+
+(defun random-from-list (list)
+  (nth (random (length list)) list))
+
+(defun generate-random-ledger (names amount-min amount-max entries)
+  (cond
+   ((zerop entries) nil)
+	(t
+	  (let*
+		  ((person1 (random-from-list names))
+		   (person2 (random-from-list (remove person1 names)))
+		   (value (random-from-range amount-min amount-max)))
+		(cons (list person1 person2 value) (generate-random-ledger names amount-min amount-max (1- entries)))))))
+
+(setq *people* '(max henry katherine thomas emily))
+(setq *ledger* (generate-random-ledger *people* 5 20 10))
+(princ (cons '(lender debtor amount) *ledger*))
+</pre>
+</div>
+
+<p>
+After a given amount of time like a week or month, you and your friends decide to find out how to pay
+everyone back. To do this, you look at the total amount each person has spent on another. Then, each
+person pays their share into the pot or takes their share out of it.
+</p>
+
+<p>
+For the above example, here is the amount each person will take from the pot (negative means they need
+to give to the pot).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(setq *balances* (make-hash-table))
+(loop for x in *people*
+	  do
+		 (setf (gethash x *balances*) 0))
+(loop for x in *ledger*
+	  do
+		 (progn
+		   (operation= #'- (gethash (cadr x) *balances*) (caddr x))
+		   (operation= #'+ (gethash (car x) *balances*) (caddr x))))
+
+(defun hash-table-to-alist (hash-table)
+  (setq alist '())
+  (maphash (lambda (k v) (setq alist (cons (list k v) alist))) hash-table)
+  alist)
+
+(princ (hash-table-to-alist *balances*))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga23a43d" class="outline-3">
+<h3 id="orga23a43d"><span class="section-number-3">4.3</span> Another problem</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+This is all well and good, but what is stopping Malicious Max from adding an entry like:
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">MAX</td>
+<td class="org-left">EMILY</td>
+<td class="org-right">100</td>
+</tr>
+</tbody>
+</table>
+<p>
+to the ledger? Right now, the answer is absolutely nothing. Malicious Max could get away with anything!
+</p>
+
+<p>
+If you're confused why this is in Max's favor since it seems like Max is giving away his money to Emily,
+we have to remember that this is not being taken into account until the group does their tallying up at
+the end of the predetermined period. So by doing this Max is forcing Emily to put more of her money into
+the pot, which he gets to take away from.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9274e5f" class="outline-3">
+<h3 id="org9274e5f"><span class="section-number-3">4.4</span> Another solution</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+Well, if you know anything about security these days you might try using a public/private key signature
+scheme such as RSA. Let's take a look at how we could use something like RSA to secure our ledger.
+</p>
+
+<p>
+First of all, let's stop using names of people and use indices instead.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(setq *people-indices* '())
+(dotimes (n (length *people*))
+  (setq *people-indices* (cons (list (nth n *people*) n) *people-indices*)))
+(princ *people-indices*)
+</pre>
+</div>
+
+<p>
+This way we will be able to rewrite our ledger like so:
+</p>
+<div class="org-src-container">
+<pre class="src src-lisp">(setq *numeric-ledger* (mapcar (lambda (arg) (princ (list (cadr (assoc (car arg) *people-indices*)) (cadr (assoc (cadr arg) *people-indices*)) (caddr arg)))) *ledger*))
+(princ *numeric-ledger*)
+</pre>
+</div>
+
+<p>
+Now, we can start discussing how we should "sign" these transactions.
+</p>
+
+<p>
+Our goal is to have someone be able to add a line to the ledger only if they have the person they are paying
+to's verification. One way to do this is by generating RSA keys for everybody on the ledger. Then when they
+get paid by another person, they encrypt the transaction with their secret key and place that encrypted
+transaction along with the plain transaction onto the ledger. Since anyone has access to the public key, all
+that is needed to do to verify this transaction is to make sure the transaction and the encrypted message
+(which is decrypted by the public key) are the exact same. This makes it practically impossible for anybody
+to lend money to another without their secret key.
+</p>
+
+<p>
+That was a lot, so here is a visual representation of what this means:
+</p>
+</div>
+
+<div id="outline-container-org46a04a4" class="outline-4">
+<h4 id="org46a04a4"><span class="section-number-4">4.4.1</span> We have visual</h4>
+<div class="outline-text-4" id="text-4-4-1">
+
+<div id="orgf818ba1" class="figure">
+<p><img src="./images/slide-0.png" alt="slide-0.png" />
+</p>
+</div>
+
+<p>
+I sort of lied before about how we check with the public/private keys. Instead of actually encrypting the
+whole entry, we encrypt its hash (this is called signing). A hash takes some kind of message and produces a
+random string as a (nearly) unique output for that given input. With a good hashing algorithm there is
+practically no way to find the original message from its hash.
+</p>
+
+<p>
+This idea of hashing is further critical when making a real blockchain.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf066536" class="outline-3">
+<h3 id="orgf066536"><span class="section-number-3">4.5</span> Malicious Max is back at it again!</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+There's still a problem with this scheme to verify transactions. Let's say that at some point Max lent 20
+dollars to Henry. Max could easily just copy that transaction over and over again. The solution to this
+is to include an index or some sort of timestamp within the ledger, that will make the hash change and thus
+also change the signature for each new transaction.
+</p>
+</div>
+</div>
+<div id="outline-container-org80a832b" class="outline-3">
+<h3 id="org80a832b"><span class="section-number-3">4.6</span> Couldn't anybody just tamper with the ledger?</h3>
+<div class="outline-text-3" id="text-4-6">
+<p>
+Yes. This is the actual meat and bones of the idea behind a blockchain. As we discussed the hash function
+earlier, we can put this to good use to stop attempts to tamper with the blockchain. The way we do this is by
+adding the previous block's hash into the current block. When we do this we guarantee that whenever somebody
+wants to mess with the order of the blockchain, they would have to regenerate all of the blocks that come after
+it. This itself is not hard, but if we include the idea before of signing a block when it is added, this becomes
+ultra-secure as somebody would have to have access to that person's private key to generate a new signature for
+that hash.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgaaa725a" class="outline-3">
+<h3 id="orgaaa725a"><span class="section-number-3">4.7</span> Going further</h3>
+<div class="outline-text-3" id="text-4-7">
+<p>
+The main upside to cryptocurrencies is the fact that they are decentralized. Right now, our blockchain relies on
+us having one single blockchain that is available to each person to add blocks to. But if whoever owns that
+place where people add blocks to the chain wants to tamper with the chain, they very much could. To prevent this,
+many cryptocurrencies implement a protocol based on proof-of-work to ensure that this can not happen.
+</p>
+
+<p>
+If you're confused by any of the discussion before this, fear not. There is a great video on youtube by <a href="https://youtu.be/bBC-nXj3Ng4">3b1b</a> that
+goes deep into the theory of everything behind BitCoin and other cryptos.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge599c5c" class="outline-2">
+<h2 id="orge599c5c"><span class="section-number-2">5</span> Terminology in cryptocurrencies</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Now we step away from the more technical side of crypto and look at some of the terminology that you will come
+across when viewing content about crypto:
+</p>
+</div>
+<div id="outline-container-org9857269" class="outline-3">
+<h3 id="org9857269"><span class="section-number-3">5.1</span> Wallet</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+This is nothing more than your private key being hashed. It can be through software or hardware, but it is
+what is used to keep your assets from being reached by other malicious people. Most of them also create an
+address, which is essentially your public key that people will use to send you money
+</p>
+</div>
+</div>
+
+<div id="outline-container-org710b176" class="outline-3">
+<h3 id="org710b176"><span class="section-number-3">5.2</span> Fiat</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+This is currency actually minted by a government.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge5c1256" class="outline-3">
+<h3 id="orge5c1256"><span class="section-number-3">5.3</span> Mining</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+Let's talk about this; this is how proof-of-work is implemented.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Simponic</p>
+<p class="date">Created: 2021-05-26 Wed 19:01</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
